@@ -1,5 +1,5 @@
 aid: google-looker-studio
-name: Google Looker Studio APIs
+name: Google Looker Studio
 description: A collection of APIs and resources for Google Looker Studio (formerly Google Data Studio), Google's free business intelligence and data visualization platform
 image: https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
 url: https://lookerstudio.google.com
