@@ -1,10 +1,12 @@
+aid: google-looker-studio
 name: Google Looker Studio APIs
 description: A collection of APIs and resources for Google Looker Studio (formerly Google Data Studio), Google's free business intelligence and data visualization platform
 image: https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
-created: 2024-01-01 00:00:00+00:00
-modified: 2024-01-01 00:00:00+00:00
-specificationVersion: '0.18'
 url: https://lookerstudio.google.com
+created: '2024-01-01'
+modified: '2026-03-16'
+specificationVersion: '0.19'
+type: Index
 apis:
 - name: Google Looker Studio API
   description: API for creating and managing Looker Studio reports and data sources programmatically
@@ -66,9 +68,8 @@ common:
 - type: GitHub Organization
   url: https://github.com/googledatastudio
 maintainers:
-- name: Google
-  email: looker-studio-support@google.com
-  url: https://about.google
+- FN: Kin Lane
+  email: kin@apievangelist.com
 tags:
 - business intelligence
 - data visualization
