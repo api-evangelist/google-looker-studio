@@ -3,8 +3,7 @@ name: Google Looker Studio
 description: >-
   A collection of APIs and resources for Google Looker Studio (formerly Google Data
   Studio), Google's free business intelligence and data visualization platform.
-image: 
-  https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
+image: https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
 url: https://lookerstudio.google.com
 created: '2024-01-01'
 modified: '2026-03-16'
@@ -14,16 +13,15 @@ apis:
   - name: Google Looker Studio API
     description: >-
       API for creating and managing Looker Studio reports and data sources programmatically.
-    image: 
-      https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
+    image: https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
     humanUrl: https://lookerstudio.google.com
     baseUrl: https://lookerstudio.googleapis.com
     tags:
-      - business intelligence
-      - data visualization
-      - reporting
-      - dashboards
-      - analytics
+      - Analytics
+      - Business Intelligence
+      - Dashboards
+      - Data Visualization
+      - Reporting
     properties:
       - type: Documentation
         url: https://developers.google.com/looker-studio/api
@@ -40,14 +38,13 @@ apis:
   - name: Google Looker Studio Embedding API
     description: >-
       API for embedding Looker Studio reports in external applications.
-    image: 
-      https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
+    image: https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
     humanUrl: https://developers.google.com/looker-studio/integrate
     baseUrl: https://lookerstudio.google.com/embed
     tags:
-      - embedding
-      - integration
-      - iframe
+      - Embedding
+      - Iframe
+      - Integration
     properties:
       - type: Documentation
         url: https://developers.google.com/looker-studio/integrate/embedding
@@ -59,8 +56,7 @@ common:
   - type: Support
     url: https://support.google.com/looker-studio
   - type: Community
-    url: 
-      https://www.en.advertisercommunity.com/t5/Looker-Studio/ct-p/looker-studio
+    url: https://www.en.advertisercommunity.com/t5/Looker-Studio/ct-p/looker-studio
   - type: Blog
     url: https://cloud.google.com/blog/products/data-analytics
   - type: Status Page
@@ -79,10 +75,10 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 tags:
-  - business intelligence
-  - data visualization
-  - reporting
-  - dashboards
-  - analytics
-  - google
-  - looker
+  - Analytics
+  - Business Intelligence
+  - Dashboards
+  - Data Visualization
+  - Google
+  - Looker
+  - Reporting
