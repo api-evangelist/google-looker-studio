@@ -31,9 +31,9 @@ apis:
         url: https://developers.google.com/looker-studio/api/authentication
       - type: Pricing
         url: https://lookerstudio.google.com/pricing
-      - type: Terms of Service
+      - type: TermsOfService
         url: https://policies.google.com/terms
-      - type: Privacy Policy
+      - type: PrivacyPolicy
         url: https://policies.google.com/privacy
   - name: Google Looker Studio Embedding API
     description: >-
@@ -51,7 +51,7 @@ apis:
       - type: Guide
         url: https://support.google.com/looker-studio/answer/7450249
 common:
-  - type: Getting Started
+  - type: GettingStarted
     url: https://support.google.com/looker-studio/answer/6283323
   - type: Support
     url: https://support.google.com/looker-studio
@@ -59,9 +59,9 @@ common:
     url: https://www.en.advertisercommunity.com/t5/Looker-Studio/ct-p/looker-studio
   - type: Blog
     url: https://cloud.google.com/blog/products/data-analytics
-  - type: Status Page
+  - type: StatusPage
     url: https://www.google.com/appsstatus/dashboard
-  - type: Release Notes
+  - type: ReleaseNotes
     url: https://support.google.com/looker-studio/answer/11521624
   - type: Templates
     url: https://lookerstudio.google.com/gallery
@@ -69,7 +69,7 @@ common:
     url: https://lookerstudio.google.com/data
   - type: Partner Program
     url: https://developers.google.com/looker-studio/partner
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/googledatastudio
 maintainers:
   - FN: Kin Lane
