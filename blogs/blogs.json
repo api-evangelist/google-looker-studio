@@ -2,13 +2,13 @@
   "repo": "google-looker-studio",
   "feeds": [
     {
-      "source": "https://cloud.google.com/blog/products/data-analytics",
-      "feed_url": "",
+      "source": "https://www.en.advertisercommunity.com/t5/Looker-Studio/ct-p/looker-studio",
+      "feed_url": "https://www.en.advertisercommunity.com/t5/Looker-Studio/ct-p/looker-studio",
       "title": "",
       "saved": 0,
-      "error": "no_feed"
+      "method": "none"
     }
   ],
-  "fetched": "2026-05-17T20:48:52Z",
+  "fetched": "2026-06-01T23:35:02Z",
   "post_count": 0
 }
