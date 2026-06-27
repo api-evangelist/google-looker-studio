@@ -2,11 +2,11 @@
   "repo": "google-looker-studio",
   "feeds": [
     {
-      "source": "https://cloud.google.com/blog/products/data-analytics",
-      "feed_url": "https://cloud.google.com/blog/products/data-analytics",
+      "source": "https://cloudblog.withgoogle.com/products/data-analytics/rss/",
+      "feed_url": "https://cloudblog.withgoogle.com/products/data-analytics/rss/",
       "title": "",
-      "saved": 0,
-      "method": "none"
+      "saved": 1,
+      "method": "feed"
     },
     {
       "source": "https://www.en.advertisercommunity.com/t5/Looker-Studio/ct-p/looker-studio",
@@ -16,6 +16,6 @@
       "method": "none"
     }
   ],
-  "post_count": 4,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 8,
+  "fetched": "2026-06-27T12:03:07Z"
 }
