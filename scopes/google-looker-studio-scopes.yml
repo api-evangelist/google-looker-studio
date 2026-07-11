@@ -1,0 +1,29 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/google-looker-studio-openapi.yml
+schemes:
+- name: OAuth2
+  source: openapi/google-looker-studio-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+    tokenUrl: https://oauth2.googleapis.com/token
+scopes:
+- scope: datastudio
+  description: View and manage Looker Studio assets
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/google-looker-studio-openapi.yml
+- scope: datastudio.readonly
+  description: View Looker Studio assets
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/google-looker-studio-openapi.yml
+- scope: userinfo.profile
+  description: View profile information
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/google-looker-studio-openapi.yml

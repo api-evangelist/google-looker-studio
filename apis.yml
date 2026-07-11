@@ -51,6 +51,8 @@ apis:
       - type: Guide
         url: https://support.google.com/looker-studio/answer/7450249
 common:
+  - type: OAuthScopes
+    url: scopes/google-looker-studio-scopes.yml
   - type: GettingStarted
     url: https://support.google.com/looker-studio/answer/6283323
   - type: Support
