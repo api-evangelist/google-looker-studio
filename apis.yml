@@ -51,6 +51,10 @@ apis:
       - type: Guide
         url: https://support.google.com/looker-studio/answer/7450249
 common:
+  - type: DomainSecurity
+    url: security/google-looker-studio-domain-security.yml
+  - type: Authentication
+    url: authentication/google-looker-studio-authentication.yml
   - type: OAuthScopes
     url: scopes/google-looker-studio-scopes.yml
   - type: GettingStarted
