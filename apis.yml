@@ -51,6 +51,8 @@ apis:
       - type: Guide
         url: https://support.google.com/looker-studio/answer/7450249
 common:
+  - type: AgenticAccess
+    url: agentic-access/google-looker-studio-agentic-access.yml
   - type: DomainSecurity
     url: security/google-looker-studio-domain-security.yml
   - type: Authentication
