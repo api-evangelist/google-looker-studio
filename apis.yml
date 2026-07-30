@@ -3,6 +3,19 @@ name: Google Looker Studio
 description: >-
   A collection of APIs and resources for Google Looker Studio (formerly Google Data
   Studio), Google's free business intelligence and data visualization platform.
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
 url: https://lookerstudio.google.com
 created: '2024-01-01'
@@ -10,46 +23,38 @@ modified: '2026-04-28'
 specificationVersion: '0.19'
 type: Index
 apis:
-  - name: Google Looker Studio API
-    description: >-
-      API for creating and managing Looker Studio reports and data sources programmatically.
-    image: https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
-    humanUrl: https://lookerstudio.google.com
-    baseUrl: https://lookerstudio.googleapis.com
-    tags:
-      - Analytics
-      - Business Intelligence
-      - Dashboards
-      - Data Visualization
-      - Reporting
-    properties:
-      - type: Documentation
-        url: https://developers.google.com/looker-studio/api
-      - type: OpenAPI
-        url: https://lookerstudio.googleapis.com/$discovery/rest
-      - type: Authentication
-        url: https://developers.google.com/looker-studio/api/authentication
-      - type: Pricing
-        url: https://lookerstudio.google.com/pricing
-      - type: TermsOfService
-        url: https://policies.google.com/terms
-      - type: PrivacyPolicy
-        url: https://policies.google.com/privacy
-  - name: Google Looker Studio Embedding API
-    description: >-
-      API for embedding Looker Studio reports in external applications.
-    image: https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
-    humanUrl: https://developers.google.com/looker-studio/integrate
-    baseUrl: https://lookerstudio.google.com/embed
-    tags:
-      - Embedding
-      - Iframe
-      - Integration
-    properties:
-      - type: Documentation
-        url: https://developers.google.com/looker-studio/integrate/embedding
-      - type: Guide
-        url: https://support.google.com/looker-studio/answer/7450249
+- name: Google Looker Studio Embedding API
+  description: API for embedding Looker Studio reports in external applications.
+  image: https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
+  humanUrl: https://developers.google.com/looker-studio/integrate
+  baseUrl: https://lookerstudio.google.com/embed
+  tags:
+  - Embedding
+  - Iframe
+  - Integration
+  properties:
+  - type: Documentation
+    url: https://developers.google.com/looker-studio/integrate/embedding
+  - type: Guide
+    url: https://support.google.com/looker-studio/answer/7450249
+- aid: google-looker-studio:google-looker-studio-assets-search-api
+  name: Google Looker Studio Assets:search API
+  description: The Assets:search API from Google Looker Studio — 1 operation(s) for assets:search.
+  tags:
+  - Assets:search
+  properties:
+  - type: OpenAPI
+    url: openapi/google-looker-studio-assets-search-api-openapi.yml
+  - type: Documentation
+    url: https://developers.google.com/looker-studio/api
+  - type: Authentication
+    url: https://developers.google.com/looker-studio/api/authentication
+  - type: Pricing
+    url: https://lookerstudio.google.com/pricing
+  - type: TermsOfService
+    url: https://policies.google.com/terms
+  - type: PrivacyPolicy
+    url: https://policies.google.com/privacy
 common:
   - type: AgenticAccess
     url: agentic-access/google-looker-studio-agentic-access.yml
