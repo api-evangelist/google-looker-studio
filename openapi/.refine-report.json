@@ -1,0 +1,14 @@
+{
+  "provider": "google-looker-studio",
+  "sources": [
+    "google-looker-studio-assets-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "google-looker-studio-assets-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
