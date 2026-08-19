@@ -1,0 +1,192 @@
+{
+  "item": [
+    {
+      "id": "d45797c5-1d2d-4f36-b6d1-5becb46e560c",
+      "name": "Assets:search",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "01847013-fa9d-486c-87e8-4f9e48d18a37",
+          "name": "Search assets",
+          "request": {
+            "name": "Search assets",
+            "description": {
+              "content": "Search for and manage Looker Studio assets such as reports and data sources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "assets:search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "assetTypes",
+                  "value": "<string>",
+                  "description": "(Required) Asset type filter; one of REPORT or DATA_SOURCE."
+                },
+                {
+                  "disabled": false,
+                  "key": "title",
+                  "value": "<string>",
+                  "description": "Filter results by asset title."
+                },
+                {
+                  "disabled": false,
+                  "key": "owner",
+                  "value": "<string>",
+                  "description": "Filter results by asset owner email address."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeTrashed",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9cc1315f-f707-4cf3-980d-cc6122849460",
+              "name": "Search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "assets:search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "assetTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "owner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeTrashed",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"assets\": [\n    {\n      \"name\": \"string\",\n      \"title\": \"string\",\n      \"type\": \"ASSET_TYPE_UNSPECIFIED\",\n      \"trashed\": true,\n      \"owner\": \"string\",\n      \"updateByMeTime\": \"1990-04-08T01:06:42.181Z\",\n      \"updateTime\": \"1955-08-02T16:02:46.290Z\",\n      \"createTime\": \"1959-05-09T12:47:57.630Z\",\n      \"lastViewByMeTime\": \"2013-02-23T06:51:23.331Z\"\n    },\n    {\n      \"name\": \"string\",\n      \"title\": \"string\",\n      \"type\": \"DATA_SOURCE\",\n      \"trashed\": false,\n      \"owner\": \"string\",\n      \"updateByMeTime\": \"2022-10-25T18:23:28.464Z\",\n      \"updateTime\": \"2018-02-16T22:54:33.238Z\",\n      \"createTime\": \"2018-06-19T23:09:59.044Z\",\n      \"lastViewByMeTime\": \"1995-07-18T06:40:18.587Z\"\n    }\n  ],\n  \"nextPageToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datastudio.googleapis.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "datastudio datastudio.readonly userinfo.profile"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/v2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a4eec1db-3089-4986-890d-33c98dda1e32",
+    "name": "Google Looker Studio Assets:search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Looker Studio (formerly Data Studio) API lets developers search and\nmanage Looker Studio assets such as reports and data sources. The API is\nrestricted to organizations using Google Workspace or Cloud Identity, and\nrequires a Workspace admin to configure domain-wide delegation.\n",
+      "type": "text/plain"
+    }
+  }
+}

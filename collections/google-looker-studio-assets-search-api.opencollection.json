@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Looker Studio Assets:search API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/v2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assets:search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datastudio.googleapis.com/v1/assets:search",
+            "params": [
+              {
+                "name": "assetTypes",
+                "value": "",
+                "type": "query",
+                "description": "Asset type filter; one of REPORT or DATA_SOURCE."
+              },
+              {
+                "name": "title",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by asset title."
+              },
+              {
+                "name": "owner",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by asset owner email address."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "includeTrashed",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search for and manage Looker Studio assets such as reports and data sources."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
