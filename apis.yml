@@ -20,7 +20,7 @@ image: https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.sv
 url: https://lookerstudio.google.com
 created: '2024-01-01'
 modified: '2026-04-28'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 type: Index
 apis:
 - name: Google Looker Studio Embedding API
