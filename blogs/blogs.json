@@ -5,7 +5,7 @@
       "source": "https://cloudblog.withgoogle.com/products/data-analytics/rss/",
       "feed_url": "https://cloudblog.withgoogle.com/products/data-analytics/rss/",
       "title": "",
-      "saved": 6,
+      "saved": 0,
       "method": "feed"
     },
     {
@@ -13,10 +13,9 @@
       "feed_url": "https://www.en.advertisercommunity.com/t5/Looker-Studio/ct-p/looker-studio",
       "title": "",
       "saved": 0,
-      "method": "none",
-      "error": "parse_failed"
+      "method": "none"
     }
   ],
-  "post_count": 48,
-  "fetched": "2026-08-15T12:11:08Z"
+  "post_count": 53,
+  "fetched": "2026-08-22T20:20:02Z"
 }
