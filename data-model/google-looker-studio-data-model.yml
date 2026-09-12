@@ -1,0 +1,90 @@
+generated: '2026-09-12'
+method: derived
+source: >-
+  Derived from openapi/google-looker-studio-assets-search-api-openapi.yml and the provider type
+  reference https://developers.google.com/looker-studio/integrate/api/reference/types
+  (HTTP 200, fetched 2026-09-12). Field names and enum values are quoted from that reference.
+provider: Google Looker Studio
+providerId: google-looker-studio
+note: >-
+  A deliberately small graph. The API manages asset METADATA and SHARING only. Google states
+  explicitly that deeper report internals — filters, sections, dimensions — cannot be retrieved
+  through the API, so there is no Chart, Page, Field or DataSourceSchema entity to model.
+entities:
+- name: Asset
+  description: A Looker Studio report or data source.
+  identifier:
+    field: name
+    form: opaque asset ID
+    note: >-
+      `name` is the ID, not a human label; the human label is `title`. A report is viewable at
+      https://datastudio.google.com/reporting/{asset.name}.
+  fields:
+  - {name: name, type: string, description: The name (ID) of the asset.}
+  - {name: title, type: string, description: The title of the asset.}
+  - {name: description, type: string, description: Description of the report. Only supported for the REPORT AssetType.}
+  - {name: assetType, type: AssetType, description: The type of asset.}
+  - {name: owner, type: string, description: The owner of the asset (email).}
+  - {name: creator, type: string, description: The creator of the asset (email).}
+  - {name: trashed, type: boolean, description: Indicates if the asset is in the trash.}
+  - {name: createTime, type: Timestamp}
+  - {name: updateTime, type: Timestamp}
+  - {name: updateByMeTime, type: Timestamp, description: Last modified by the user making the call.}
+  - {name: lastViewByMeTime, type: Timestamp, description: Last viewed by the user making the call.}
+  spec_discrepancy: >-
+    The OpenAPI in this repo calls the type field `type`; the provider reference calls it
+    `assetType`, and the OpenAPI omits `description` and `creator` entirely. Recorded in
+    overlays/google-looker-studio-assets-search-api-overlay.yaml.
+- name: AssetType
+  kind: enum
+  values: [REPORT, DATA_SOURCE]
+  note: The spec adds ASSET_TYPE_UNSPECIFIED; the public reference lists only the two real values.
+- name: Permissions
+  description: The role-to-members map governing access to one Asset.
+  shape: '{ "permissions": { <Role>: { "members": [Member] } }, "etag": string }'
+  fields:
+  - {name: permissions, type: 'map<Role, Member[]>'}
+  - {name: etag, type: string, description: etag to detect and fail concurrent modifications.}
+- name: Role
+  kind: enum
+  values: [OWNER, EDITOR, VIEWER, LINK_EDITOR, LINK_VIEWER]
+  note: >-
+    An asset can hold LINK_VIEWER or LINK_EDITOR, never both. OWNER cannot be granted or revoked
+    through this API.
+- name: Member
+  kind: prefixed principal
+  prefixes:
+  - {prefix: 'user:', description: A Google account, e.g. user:gus@gmail.com}
+  - {prefix: 'group:', description: A Google Group, e.g. group:api@googlegroups.com}
+  - {prefix: 'domain:', description: A Google Workspace or Cloud Identity domain, e.g. domain:example.com}
+  - {prefix: 'serviceAccount:', description: A Google Cloud project service account}
+  literals:
+  - {value: allUsers, description: Anyone with the link can view/edit. Only valid for LINK_VIEWER / LINK_EDITOR.}
+relationships:
+- from: Asset
+  to: Permissions
+  cardinality: has_one
+  via: assetName path parameter (/v1/assets/{assetName}/permissions)
+- from: Permissions
+  to: Role
+  cardinality: has_many
+  via: permissions map keys
+- from: Role
+  to: Member
+  cardinality: has_many
+  via: members array
+- from: Asset
+  to: Member
+  cardinality: belongs_to
+  via: owner and creator fields (email strings, unprefixed — NOT Member-formatted)
+  note: >-
+    A real trap for a client. `Asset.owner` and `Asset.creator` are bare email addresses, while the
+    same principal inside Permissions is prefixed `user:`. The two representations are not
+    interchangeable and neither side converts for you.
+- from: Asset
+  to: AssetType
+  cardinality: has_one
+  via: assetType field
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

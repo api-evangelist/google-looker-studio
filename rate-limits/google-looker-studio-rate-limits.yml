@@ -3,97 +3,67 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: Google Looker Studio
 providerId: google-looker-studio
+generated: '2026-09-12'
+method: probed
+source: >-
+  Live probe of GET https://datastudio.googleapis.com/v1/assets:search?assetTypes=REPORT
+  (2026-09-12, full response headers captured) plus a documentation sweep of
+  https://developers.google.com/looker-studio/api,
+  https://developers.google.com/looker-studio/integrate/api/reference and the Data Studio section
+  of docs.cloud.google.com.
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Analytics
-  - Business Intelligence
-  - Dashboards
-  - Data Visualization
-  - Google
-  - Looker
-  - Reporting
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Google Looker Studio API surface. Captures
-  per-tier quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values
-  to be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+modified: '2026-09-12'
+limit_count: 0
+supersedes: >-
+  REPLACED A FABRICATED SCAFFOLD. Until 2026-09-12 this file asserted five tiered limits
+  (10/100/1000 requests per minute, 1,000 and 100,000 per month, burst ceilings) and an
+  X-RateLimit-Limit / X-RateLimit-Remaining / X-RateLimit-Reset / RateLimit-Policy header set.
+  Google publishes none of those numbers and the API sends none of those headers. The whole block
+  was written by the 2026-05-04 bulk sweep and was never observed. It is gone.
+description: >-
+  An honest zero. Google publishes no per-endpoint, per-key or per-account rate limit for the Data
+  Studio API, and the live response advertises no rate-limit budget of any kind. This is a real
+  finding, not a gap in the search: a client has no way to learn its allowance before it is
+  enforced.
+headers_observed:
+  rate_limit: none
+  retry_after: none
+  note: >-
+    The 2026-09-12 live response carried only vary (X-Origin, Referer, Origin, Accept-Encoding),
+    content-type, date, server: ESF, x-xss-protection, x-frame-options, x-content-type-options,
+    accept-ranges, alt-svc and www-authenticate. No RateLimit-*, no X-RateLimit-*, no Retry-After.
+headers_documented: []
+limits: []
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Google Looker Studio API
-      - Google Looker Studio Embedding API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Google Looker Studio API
-      - Google Looker Studio Embedding API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Google Looker Studio API
-      - Google Looker Studio Embedding API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Google Looker Studio API
-      - Google Looker Studio Embedding API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Google Looker Studio API
-      - Google Looker Studio Embedding API
+  throttled_confidence: inferred
+  throttled_note: >-
+    Not observed and not documented for this API. Google Cloud APIs return 429 with canonical
+    status RESOURCE_EXHAUSTED when a project quota is exceeded; that is the expected shape here,
+    but it was not confirmed on the wire and no number is attached to it.
+quota_surface:
+  location: Google Cloud console quotas page for the enabled Data Studio API
+  machine_readable: false
+  anonymous_access: false
+  note: >-
+    Whatever quota exists is a per-project Cloud quota visible only to a signed-in project owner in
+    the console. There is no public quota document. Probed
+    https://docs.cloud.google.com/looker/docs/studio/quotas-and-limits and
+    .../looker-studio-quotas on 2026-09-12 — both 404.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+- name: Client backoff
+  description: >-
+    With no published budget and no runtime signal, the only safe client strategy is exponential
+    backoff with jitter on 429 and 5xx. Nothing on the wire tells a client how long to wait, so
+    Retry-After cannot be honoured — it is never sent.
+tags:
+- Analytics
+- Business Intelligence
+- Google
+- Looker
+- Reporting
+- Rate Limiting
+- Quotas
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

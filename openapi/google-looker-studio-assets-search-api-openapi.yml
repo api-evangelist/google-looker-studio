@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Google Looker Studio Assets:search API
   description: 'The Looker Studio (formerly Data Studio) API lets developers search and

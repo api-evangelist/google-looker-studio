@@ -1,0 +1,62 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://developers.google.com/looker-studio/visualization,
+  https://developers.google.com/looker-studio/connector,
+  https://developers.google.com/looker-studio/integrate,
+  https://support.google.com/looker-studio/answer/7450249,
+  https://www.npmjs.com/package/@google/dscc — all fetched/checked 2026-09-12.
+provider: Google Looker Studio
+providerId: google-looker-studio
+description: >-
+  Client-side and embeddable surfaces Looker Studio exposes to developers. These are distinct from
+  the REST API and from the (nonexistent) REST SDK: they run inside the report canvas or inside the
+  host page, not against datastudio.googleapis.com.
+families:
+- name: Community Visualizations
+  kind: in-canvas component
+  description: >-
+    A custom chart authored as an HTML/JS bundle that Looker Studio loads into an iframe on the
+    report canvas. The host passes data and style into the frame; the component renders and can
+    send interactions back.
+  loader:
+    library: '@google/dscc'
+    registry: npm
+    version: 0.3.22
+    published: '2021-08-16'
+    distribution: npm package bundled into the visualization build
+  api_surface:
+  - dscc.subscribeToData
+  - dscc.getWidth
+  - dscc.getHeight
+  - dscc.sendInteraction
+  note: >-
+    Method names are recorded from the published package description and the visualization guide.
+    The full surface is not re-listed here beyond what the provider documents.
+  docs: https://developers.google.com/looker-studio/visualization
+  tooling: cli/google-looker-studio-cli.yml
+- name: Community Connectors
+  kind: server-side extension (Google Apps Script)
+  description: >-
+    A connector authored in Apps Script that implements getConfig, getSchema, getData and
+    getAuthType so an arbitrary data source appears in the Looker Studio connector picker.
+  required_functions:
+  - getAuthType
+  - getConfig
+  - getSchema
+  - getData
+  docs: https://developers.google.com/looker-studio/connector
+  reference: https://developers.google.com/looker-studio/connector/reference
+  gallery: https://lookerstudio.google.com/data
+- name: Report embedding
+  kind: hosted/prebuilt surface
+  description: >-
+    A published report embedded in a third-party page via an iframe against
+    https://lookerstudio.google.com/embed. No JavaScript SDK is provided; embedding is pure markup
+    and the report's own sharing settings govern who can see it.
+  base: https://lookerstudio.google.com/embed
+  docs: https://support.google.com/looker-studio/answer/7450249
+  overview: https://developers.google.com/looker-studio/integrate
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

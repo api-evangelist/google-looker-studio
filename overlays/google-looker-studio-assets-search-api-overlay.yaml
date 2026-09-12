@@ -1,0 +1,131 @@
+overlay: 1.0.0
+info:
+  title: Google Looker Studio Assets:search API — API Evangelist enhancements
+  version: 1.0.0
+extends: ../openapi/google-looker-studio-assets-search-api-openapi.yml
+x-provenance:
+  generated: '2026-09-12'
+  method: searched
+  source: >-
+    Every value below is quoted from Google's own published reference pages:
+    https://developers.google.com/looker-studio/integrate/api/reference/assets/search and
+    https://developers.google.com/looker-studio/integrate/api/reference/types (both HTTP 200,
+    fetched 2026-09-12). Nothing here is invented. The overlay is never applied over the
+    _original spec; it records the delta between the spec in this repo and the provider reference.
+actions:
+- target: $.info
+  description: Record the provider reference as the contact/docs surface for this spec.
+  update:
+    x-source-documentation: https://developers.google.com/looker-studio/integrate/api/reference/assets/search
+    x-product-naming-note: >-
+      Google's documentation currently renders this product as "Data Studio"; the
+      "Looker Studio" name and /looker-studio/ URL paths both remain live and resolve to the
+      same pages. One product, two names.
+- target: $.paths['/v1/assets:search'].get.parameters[?(@.name=='assetTypes')]
+  description: The reference types this as an array of AssetType and states exactly one must be supplied.
+  update:
+    description: >-
+      Required. The asset type to search. Exactly one asset type must be specified.
+    x-provider-type: Array<AssetType>
+- target: $.paths['/v1/assets:search'].get.parameters[?(@.name=='title')]
+  description: The title parameter is a full search-string field, not a literal title match.
+  update:
+    description: >-
+      The search string. By default the string is checked against the title AND the description of
+      the asset. Advanced search filters may be combined in this one field — creator:me,
+      creator:user@example.com, owner:me, owner:user@example.com, projectNumber:123456789,
+      parentWorkspace:<workspace-uuid>, from:user@example.com, to:user@example.com,
+      to:example-group@googlegroups.com. Multiple filters may appear in a single search string.
+    x-search-syntax-docs: https://developers.google.com/looker-studio/integrate/api/reference/assets/search
+- target: $.paths['/v1/assets:search'].get.parameters[?(@.name=='pageSize')]
+  description: The reference states the default page size.
+  update:
+    description: The number of results to include per page. Defaults to 1000.
+    schema:
+      type: integer
+      default: 1000
+- target: $.paths['/v1/assets:search'].get.parameters[?(@.name=='includeTrashed')]
+  description: The reference makes clear this is exclusive, not additive.
+  update:
+    description: >-
+      Defaults to false. When true, ONLY assets in the trash are returned. When false, only assets
+      NOT in the trash are returned. It is not a way to include trashed assets alongside live ones.
+- target: $.paths['/v1/assets:search'].get
+  description: Add the orderBy query parameter, documented in the reference but missing from the spec.
+  update:
+    x-missing-parameter-orderBy:
+      name: orderBy
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - title
+        - last_viewed_by_me
+        - create_time
+        - last_accessed_time
+        - id
+      description: The order of the results.
+      x-source: https://developers.google.com/looker-studio/integrate/api/reference/assets/search
+- target: $.paths['/v1/assets:search'].get.responses['200'].content['application/json'].schema.properties
+  description: The reference documents previousPageToken alongside nextPageToken.
+  update:
+    previousPageToken:
+      type: string
+      description: >-
+        A token to retrieve the previous page of results. An empty previousPageToken indicates the
+        beginning of the result set.
+- target: $.components.schemas.Asset.properties
+  description: Two documented Asset fields are absent from the spec, and one is misnamed.
+  update:
+    description:
+      type: string
+      description: Description of the report. Only supported for the REPORT AssetType.
+    creator:
+      type: string
+      description: The creator of the asset.
+- target: $.components.schemas.Asset
+  description: The reference names the type field assetType, not type.
+  update:
+    x-field-naming-discrepancy: >-
+      The provider reference names this field `assetType`; the spec in this repo calls it `type`.
+      A client generated from the unmodified spec will not deserialize the real response field.
+      Source https://developers.google.com/looker-studio/integrate/api/reference/types
+- target: $
+  description: >-
+    GAP RECORD ONLY — the four Permissions operations Google documents are deliberately NOT written
+    as path objects here. This pipeline does not author OpenAPI operations from prose; recording them
+    as an extension keeps the finding without manufacturing a contract. Harvest a real machine-readable
+    contract (the gated discovery document) before promoting these to paths.
+  update:
+    x-api-evangelist-documented-operations-missing-from-spec:
+    - method: GET
+      path: /v1/assets/{assetName}/permissions
+      summary: Get the permissions for a Data Studio asset.
+      scopes: [datastudio.readonly, datastudio]
+      docs: https://developers.google.com/looker-studio/integrate/api/reference/permissions/get
+    - method: PATCH
+      path: /v1/assets/{assetName}/permissions
+      summary: Update permissions for a Data Studio asset. The OWNER role cannot be updated.
+      scopes: [datastudio]
+      docs: https://developers.google.com/looker-studio/integrate/api/reference/permissions/patch
+    - method: POST
+      path: /v1/assets/{assetName}/permissions:addMembers
+      summary: Adds members to a Data Studio asset. Members cannot be added to the OWNER role.
+      scopes: [datastudio]
+      docs: https://developers.google.com/looker-studio/integrate/api/reference/permissions/addMembers
+    - method: POST
+      path: /v1/assets/{assetName}/permissions:revokeAllPermissions
+      summary: >-
+        Remove members from a Data Studio asset. Owners and the authorized user cannot be removed.
+        Well-formed requests always return 200 OK even when a member is invalid or not on the asset.
+      scopes: [datastudio]
+      docs: https://developers.google.com/looker-studio/integrate/api/reference/permissions/revokeAllPermissions
+    x-api-evangelist-missing-schemas:
+    - name: Permissions
+      shape: '{ "permissions": { <Role>: { "members": [Member] } }, "etag": string }'
+      docs: https://developers.google.com/looker-studio/integrate/api/reference/types#Permissions
+    - name: Role
+      values: [VIEWER, EDITOR, OWNER, LINK_VIEWER, LINK_EDITOR]
+    - name: Member
+      shape: 'prefixed principal — user:, group:, domain:, serviceAccount:, or the literal allUsers'

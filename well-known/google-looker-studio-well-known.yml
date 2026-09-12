@@ -1,0 +1,80 @@
+generated: '2026-09-12'
+method: probed
+source: >-
+  Live unauthenticated HTTPS probes of every host this record knows — the registrable domain and
+  www (google.com), the API baseURL / OpenAPI servers[] host (datastudio.googleapis.com), the app
+  host (lookerstudio.google.com), the developer docs host (developers.google.com), the relocated
+  Google Cloud docs host (docs.cloud.google.com) and the authorization server named by the
+  OpenAPI oauth2 flow (accounts.google.com).
+provider: Google Looker Studio
+providerId: google-looker-studio
+note: >-
+  lookerstudio.google.com is a single-page app with a catch-all route: EVERY /.well-known/* path
+  returns HTTP 200 with the same 4,401-byte "Data Studio Overview" HTML shell. Those rows are
+  recorded as 200 but are NOT documents and are not credited. Two real documents were found:
+  Google's company-wide security.txt on www.google.com, and the OpenID Provider configuration on
+  accounts.google.com, which is the authorization server the Looker Studio API's OAuth 2.0
+  authorization-code flow actually uses.
+hosts:
+- host: www.google.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: google-looker-studio-security.txt
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: accounts.google.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: google-looker-studio-openid-configuration.json
+- host: datastudio.googleapis.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 400
+    note: Host answers every unrouted path with the Google API gateway envelope )]}' {"errorStatus":{"code":3}}.
+  - path: /.well-known/oauth-authorization-server
+    status: 400
+  - path: /.well-known/agent-card.json
+    status: 400
+- host: lookerstudio.google.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    note: SPA catch-all HTML shell, not a document. Treated as a miss.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    note: SPA catch-all HTML shell, not a document. Treated as a miss.
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    note: SPA catch-all HTML shell, not a document. Treated as a miss.
+  - path: /.well-known/agent-card.json
+    status: 200
+    note: SPA catch-all HTML shell, not a document. Treated as a miss.
+  - path: /.well-known/agent.json
+    status: 200
+    note: SPA catch-all HTML shell, not a document. Treated as a miss.
+- host: developers.google.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+- host: docs.cloud.google.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404

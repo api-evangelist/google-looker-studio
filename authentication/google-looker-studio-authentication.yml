@@ -1,11 +1,22 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/google-looker-studio-openapi.yml
+generated: '2026-09-12'
+method: searched
+source: openapi/google-looker-studio-assets-search-api-openapi.yml
+docs: https://developers.google.com/looker-studio/api
+evidence:
+- url: https://developers.google.com/looker-studio/api
+  status: 200
+  kind: provider authentication + authorization guide
+- url: https://datastudio.googleapis.com/v1/assets:search?assetTypes=REPORT
+  status: 401
+  kind: live probe — WWW-Authenticate challenge observed
 summary:
   types:
   - oauth2
   oauth2_flows:
   - authorizationCode
+  api_keys: false
+  mtls: false
+  challenge: 'WWW-Authenticate: Bearer realm="https://accounts.google.com/"'
 schemes:
 - name: OAuth2
   type: oauth2
@@ -15,4 +26,36 @@ schemes:
     tokenUrl: https://oauth2.googleapis.com/token
     scopes: 3
   sources:
-  - openapi/google-looker-studio-openapi.yml
+  - openapi/google-looker-studio-assets-search-api-openapi.yml
+  - https://developers.google.com/looker-studio/api
+preconditions:
+- id: workspace-membership
+  requirement: >-
+    The authenticating user must belong to a Google Workspace or Cloud Identity organization.
+    Consumer Google accounts cannot authenticate to this API at all.
+- id: domain-wide-delegation
+  requirement: >-
+    A Workspace admin must register the app's OAuth client ID under domain-wide delegation in the
+    Google Admin console, together with the scopes the app needs, before any user in that
+    organization can authorize the app. Once done, every user in the organization is authorized
+    automatically and is shown no OAuth consent dialog.
+  admin_surface: https://admin.google.com/ac/owl/domainwidedelegation
+- id: api-enabled
+  requirement: The Data Studio API must be enabled on the caller's Google Cloud project.
+- id: do-not-self-declare-scopes
+  requirement: >-
+    Google instructs developers NOT to add Data Studio scopes to their own OAuth client; the
+    Workspace admin attaches them during delegation. Declaring them locally is the documented cause
+    of the Error 400 invalid_scope failure.
+failure_modes:
+- error: 'Error 400: invalid_scope'
+  cause: The user's organization has not authorized the app, or authorized it with the wrong scopes.
+  remedy: The user must ask their Workspace admin to complete or correct the delegation.
+- error: 401 UNAUTHENTICATED / CREDENTIALS_MISSING
+  cause: No or expired bearer token.
+- error: 403 PERMISSION_DENIED
+  cause: API not enabled on the project, or caller has no established identity.
+cross_links:
+  scopes: scopes/google-looker-studio-scopes.yml
+  conventions: conventions/google-looker-studio-conventions.yml
+  errors: errors/google-looker-studio-problem-types.yml

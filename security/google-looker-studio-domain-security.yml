@@ -1,13 +1,25 @@
-generated: '2026-07-11'
+generated: '2026-09-12'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
+- host: www.google.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Nov  2 08:39:48 2026 GMT
+  hsts: false
 - host: datastudio.googleapis.com
   https: true
   tls_version: TLSv1.3
-  cert_expires: Sep 14 08:37:17 2026 GMT
+  cert_expires: Nov  2 08:39:03 2026 GMT
   hsts: null
 domains:
+- domain: google.com
+  dnssec: false
+  caa:
+  - 0 issue "pki.goog"
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
 - domain: googleapis.com
   dnssec: false
   caa:

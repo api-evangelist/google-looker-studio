@@ -1,0 +1,91 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://registry.npmjs.org metadata endpoints for each package, cross-checked against the
+  github.com/googledatastudio organization the packages declare as their repository.
+provider: Google Looker Studio
+providerId: google-looker-studio
+description: >-
+  First-party client tooling published by Google for the Looker Studio (Data Studio) developer
+  platform. IMPORTANT SCOPE NOTE: none of these packages is a client for the REST
+  datastudio.googleapis.com Assets/Permissions API. They are the Community Visualization and
+  Community Connector build toolchain. Google publishes no first-party SDK for the REST API;
+  callers are directed to the generic Google API client libraries and raw OAuth 2.0 HTTP calls
+  (https://developers.google.com/looker-studio/api).
+registries_checked:
+- npm
+- PyPI
+- Maven Central
+- NuGet
+- pkg.go.dev
+- RubyGems
+- Packagist
+- crates.io
+packages:
+- name: '@google/dscc'
+  registry: npm
+  official: true
+  language: javascript
+  url: https://www.npmjs.com/package/@google/dscc
+  repository: https://github.com/googledatastudio/tooling
+  version: 0.3.22
+  published: '2021-08-16'
+  role: community-visualization
+  description: >-
+    dscc (Data Studio Community Component) — the browser library a Community Visualization uses to
+    receive data and style from the Looker Studio host frame (subscribeToData, getWidth, sendInteraction).
+  note: >-
+    Latest release predates the current product by roughly five years. This is the runtime library
+    every published Community Visualization loads, so the staleness is a live decay signal, not a
+    dormant side project.
+- name: '@google/dscc-scripts'
+  registry: npm
+  official: true
+  language: typescript
+  url: https://www.npmjs.com/package/@google/dscc-scripts
+  repository: https://github.com/googledatastudio/dscc-scripts
+  version: 1.0.17
+  published: '2020-08-04'
+  role: build-tooling
+  description: Scripts for building, bundling and deploying Looker Studio developer projects (viz build, viz push, connector deploy).
+  note: Last published 2020-08-04.
+- name: '@google/dscc-gen'
+  registry: npm
+  official: true
+  language: typescript
+  url: https://www.npmjs.com/package/@google/dscc-gen
+  repository: https://github.com/googledatastudio/dscc-gen
+  version: 2.0.31
+  published: '2020-10-27'
+  role: scaffolding-cli
+  description: Project generator that scaffolds a Community Visualization or Community Connector with defaults.
+  note: Invoked as `npx @google/dscc-gen`. Last published 2020-10-27. See cli/google-looker-studio-cli.yml.
+- name: '@google/dscc-validation'
+  registry: npm
+  official: true
+  language: typescript
+  url: https://www.npmjs.com/package/@google/dscc-validation
+  repository: https://github.com/googledatastudio/tooling
+  version: 1.0.4
+  published: '2020-01-28'
+  role: build-tooling
+  description: Validation helpers used by the dscc build toolchain to check visualization config and manifest shape.
+  note: Last published 2020-01-28.
+absent:
+- registry: PyPI
+  note: No first-party Google Looker Studio / Data Studio package found.
+- registry: Maven Central
+  note: No first-party package found.
+- registry: NuGet
+  note: No first-party package found.
+- registry: pkg.go.dev
+  note: No first-party package found.
+- registry: RubyGems
+  note: No first-party package found.
+- registry: Packagist
+  note: No first-party package found.
+- registry: crates.io
+  note: No first-party package found.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

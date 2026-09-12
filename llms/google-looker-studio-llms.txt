@@ -1,0 +1,71 @@
+# Google Looker Studio (Data Studio)
+
+> Google's self-service business intelligence and data visualization product. Free to create and
+> view reports; a paid Looker Studio Pro / Data Studio Pro tier adds team workspaces, Google Cloud
+> support and enterprise security controls. Three developer surfaces exist: a small REST management
+> API at datastudio.googleapis.com, a Community Connector framework built on Google Apps Script,
+> and a Community Visualization framework built on the @google/dscc browser library.
+
+<!--
+generated: 2026-09-12
+method: generated
+source: apis.yml + repo artifacts. The provider publishes no llms.txt — probed
+  https://lookerstudio.google.com/llms.txt (HTTP 200, SPA catch-all HTML shell),
+  https://developers.google.com/llms.txt (404) and
+  https://developers.google.com/looker-studio/llms.txt (404) on 2026-09-12.
+naming-note: Google's own documentation has reverted to the "Data Studio" name — the docs
+  nav, page titles and the lookerstudio.google.com <title> all read "Data Studio" as of
+  2026-09-12, while the /looker-studio/ URL paths still resolve. Both names refer to one product.
+-->
+
+## API
+
+- [Data Studio API overview](https://developers.google.com/looker-studio/api): how to enable the API, create an OAuth client, and get a Workspace admin to authorize it via domain-wide delegation.
+- [API reference](https://developers.google.com/looker-studio/integrate/api/reference): all five operations, relative to https://datastudio.googleapis.com/v1
+- [Assets: search](https://developers.google.com/looker-studio/integrate/api/reference/assets/search): GET /v1/assets:search — the only operation captured in this repo's OpenAPI (operationId `searchAssets`)
+- [Permissions: get](https://developers.google.com/looker-studio/integrate/api/reference/permissions/get): GET /v1/assets/{assetName}/permissions
+- [Permissions: patch](https://developers.google.com/looker-studio/integrate/api/reference/permissions/patch): PATCH /v1/assets/{assetName}/permissions
+- [Permissions: addMembers](https://developers.google.com/looker-studio/integrate/api/reference/permissions/addMembers): POST /v1/assets/{assetName}/permissions:addMembers
+- [Permissions: revokeAllPermissions](https://developers.google.com/looker-studio/integrate/api/reference/permissions/revokeAllPermissions): POST /v1/assets/{assetName}/permissions:revokeAllPermissions
+- [Types](https://developers.google.com/looker-studio/integrate/api/reference/types): Asset, AssetType, Role, Member and Permissions representations
+
+## Access constraints an agent must know first
+
+- The API is available ONLY to users in a Google Workspace or Cloud Identity organization. A consumer @gmail.com account cannot use it.
+- The calling OAuth client must be authorized by a Workspace admin using domain-wide delegation before any user in that organization can call it. Without it, authorization fails with `Error 400: invalid_scope`.
+- Do not add Data Studio scopes to the OAuth client itself; the Workspace admin attaches them during delegation.
+- The API discovery document (https://datastudio.googleapis.com/$discovery/rest?version=v1) returns HTTP 403 to unregistered callers and datastudio is not in the public Google API discovery directory.
+
+## Other developer surfaces
+
+- [Community Connectors](https://developers.google.com/looker-studio/connector): Apps Script connectors that expose an arbitrary data source to Looker Studio.
+- [Connector reference](https://developers.google.com/looker-studio/connector/reference)
+- [Community Visualizations](https://developers.google.com/looker-studio/visualization): custom charts rendered in the report canvas.
+- [Embedding reports](https://support.google.com/looker-studio/answer/7450249): iframe embed of a published report.
+- [Connector gallery](https://lookerstudio.google.com/data)
+- [Report gallery / templates](https://lookerstudio.google.com/gallery)
+
+## Packages
+
+- `@google/dscc` (npm, 0.3.22, published 2021-08-16) — Community Visualization runtime library
+- `@google/dscc-gen` (npm, 2.0.31, published 2020-10-27) — `npx @google/dscc-gen` project scaffolder
+- `@google/dscc-scripts` (npm, 1.0.17, published 2020-08-04) — viz/connector build and deploy scripts
+- `@google/dscc-validation` (npm, 1.0.4, published 2020-01-28)
+- There is NO first-party SDK for the REST API. Call it with the generic Google API client libraries or raw OAuth 2.0 HTTP.
+
+## Operations and pricing
+
+- [Pricing](https://cloud.google.com/data-studio): free for self-service; Data Studio Pro is $9 per user per project per month.
+- [Release notes](https://docs.cloud.google.com/looker/docs/studio/release-notes) and [Atom feed](https://docs.cloud.google.com/feeds/data-studio-release-notes.xml)
+- [Status dashboard](https://www.google.com/appsstatus/dashboard)
+- [Security and compliance](https://docs.cloud.google.com/looker/docs/studio/security-and-compliance): CMEK, customer-managed storage, data residency (Pro only)
+- [Google Cloud services in scope by compliance program](https://cloud.google.com/security/compliance/services-in-scope): Looker Studio is in scope for ISO 27001/27017/27018, SOC 1/2/3, PCI DSS and penetration testing.
+- [Vulnerability reward program](https://g.co/vrp) / [security.txt](https://www.google.com/.well-known/security.txt)
+
+## Not published
+
+- No MCP server for Looker Studio. (Google's Looker MCP server is a different product — see all/google-looker/.)
+- No A2A agent card on any Looker Studio host.
+- No AsyncAPI, no webhooks, no gRPC/Protobuf, no WSDL.
+- No published per-endpoint rate limits or quotas for datastudio.googleapis.com.
+- No idempotency mechanism on the write operations.

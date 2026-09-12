@@ -1,29 +1,69 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/google-looker-studio-openapi.yml
+generated: '2026-09-12'
+method: searched
+source: openapi/google-looker-studio-assets-search-api-openapi.yml
+docs: https://developers.google.com/looker-studio/api
+evidence:
+- url: https://developers.google.com/looker-studio/api
+  status: 200
+  kind: provider scope list and least-privilege guidance
+- url: https://developers.google.com/looker-studio/integrate/api/reference/assets/search
+  status: 200
+  kind: per-operation scope requirement
+note: >-
+  The provider documents the fully-qualified scope URIs; the OpenAPI declares only the short
+  suffixes. Both forms are recorded below so a client generated from either source resolves.
+  Scopes are attached to the OAuth client by a Workspace admin during domain-wide delegation, not
+  declared by the app.
 schemes:
 - name: OAuth2
-  source: openapi/google-looker-studio-openapi.yml
+  source: openapi/google-looker-studio-assets-search-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
     tokenUrl: https://oauth2.googleapis.com/token
 scopes:
 - scope: datastudio
-  description: View and manage Looker Studio assets
+  uri: https://www.googleapis.com/auth/datastudio
+  description: View and manage Looker Studio assets.
+  level: read-write
+  required_for:
+  - PATCH /v1/assets/{assetName}/permissions
+  - POST /v1/assets/{assetName}/permissions:addMembers
+  - POST /v1/assets/{assetName}/permissions:revokeAllPermissions
+  also_accepted_for:
+  - GET /v1/assets:search
+  - GET /v1/assets/{assetName}/permissions
   flows:
   - authorizationCode
   sources:
-  - openapi/google-looker-studio-openapi.yml
+  - openapi/google-looker-studio-assets-search-api-openapi.yml
+  - https://developers.google.com/looker-studio/api
 - scope: datastudio.readonly
-  description: View Looker Studio assets
+  uri: https://www.googleapis.com/auth/datastudio.readonly
+  description: View Looker Studio assets.
+  level: read-only
+  required_for: []
+  also_accepted_for:
+  - GET /v1/assets:search
+  - GET /v1/assets/{assetName}/permissions
+  provider_guidance: >-
+    "If your app doesn't need to manage Data Studio assets, consider using the more restrictive
+    https://www.googleapis.com/auth/datastudio.readonly scope instead of
+    https://www.googleapis.com/auth/datastudio."
   flows:
   - authorizationCode
   sources:
-  - openapi/google-looker-studio-openapi.yml
+  - openapi/google-looker-studio-assets-search-api-openapi.yml
+  - https://developers.google.com/looker-studio/api
 - scope: userinfo.profile
-  description: View profile information
+  uri: https://www.googleapis.com/auth/userinfo.profile
+  description: View profile information.
+  level: read-only
+  note: >-
+    Listed by the provider among the scopes "commonly requested if using the Data Studio API to
+    manage assets", alongside the datastudio scope. Not required by any documented operation.
   flows:
   - authorizationCode
   sources:
-  - openapi/google-looker-studio-openapi.yml
+  - openapi/google-looker-studio-assets-search-api-openapi.yml
+  - https://developers.google.com/looker-studio/api

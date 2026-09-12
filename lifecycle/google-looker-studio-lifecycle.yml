@@ -1,0 +1,70 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://docs.cloud.google.com/looker/docs/studio/release-notes (HTTP 200),
+  https://docs.cloud.google.com/feeds/data-studio-release-notes.xml (HTTP 200, text/xml),
+  https://www.google.com/appsstatus/dashboard (HTTP 200),
+  https://developers.google.com/looker-studio/integrate/api/reference, all fetched 2026-09-12.
+provider: Google Looker Studio
+providerId: google-looker-studio
+versioning:
+  scheme: path-segment
+  current: v1
+  evidence: >-
+    Every documented operation is relative to https://datastudio.googleapis.com/v1. No header, media
+    type or query-parameter version negotiation is offered. The API has been on v1 since launch and
+    no v2 or beta channel is published.
+  breaking_change_policy: >-
+    Not published for this API specifically. Google's general Cloud API deprecation posture applies
+    via the service terms, but no per-API deprecation window is stated in the Data Studio API docs.
+deprecation:
+  policy_published: true
+  policy_form: dated release notes
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    The provider does publish deprecations, but as prose entries tagged "Deprecated" in the release
+    notes — not as RFC 8594 Sunset / Deprecation response headers. Probed 2026-09-12: a live call to
+    /v1/assets:search returns no Deprecation or Sunset header. An agent cannot learn about a
+    retirement from the wire; it has to read the feed.
+  source: https://docs.cloud.google.com/looker/docs/studio/release-notes
+  feed: https://docs.cloud.google.com/feeds/data-studio-release-notes.xml
+  recent_entries:
+  - date: '2026-04-30'
+    kind: Deprecated
+    summary: >-
+      Location extension fields in the Google Ads and New Search Ads 360 connectors deprecated;
+      they stopped serving data on 2026-05-04. Reports using them return an error. Callers must
+      migrate to the corresponding "Asset location" fields.
+    notice_window_days: 4
+    note: >-
+      Four days between announcement and data cut-off. This is a connector-field deprecation, not
+      an API operation retirement, but it is the shape of notice this product gives.
+  deprecated_operations:
+  - none
+  deprecated_operations_note: >-
+    Derived from openapi/google-looker-studio-assets-search-api-openapi.yml — no operation carries
+    deprecated: true.
+status_page:
+  url: https://www.google.com/appsstatus/dashboard
+  name: Google Workspace Status Dashboard
+  machine_readable: false
+  note: >-
+    Looker Studio appears on the shared Google Workspace status dashboard rather than on a
+    product-specific status page. No public JSON/RSS incident API is offered for it.
+sla:
+  published: false
+  note: >-
+    No SLA is published for the no-cost tier. Data Studio Pro is sold through a Google Cloud
+    project and is governed by the Google Cloud service terms; no Looker-Studio-specific uptime
+    commitment is stated on the product or pricing page.
+release_channel:
+  cadence: rolling
+  note: >-
+    Release notes are published as dated batches ("the following features are rolling out over the
+    next week"), most recently 2026-08-13, 2026-07-30, 2026-06-18, 2026-06-11 and 2026-06-01.
+    Features reach tenants progressively rather than on a version boundary.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

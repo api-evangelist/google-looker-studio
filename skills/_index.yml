@@ -1,0 +1,19 @@
+generated: '2026-09-12'
+method: generated
+provider: Google Looker Studio
+providerId: google-looker-studio
+source: >-
+  Generated from openapi/google-looker-studio-assets-search-api-openapi.yml and the provider
+  reference. The provider publishes no skills/ directory and no AGENTS.md — checked 2026-09-12.
+note: >-
+  One skill only. The repo's OpenAPI contains exactly one operationId (searchAssets), and this
+  pipeline grounds skills in real operationIds rather than in prose, so the four Permissions
+  operations Google documents but does not put in a machine-readable contract get no skill until a
+  real spec covers them. See overlays/google-looker-studio-assets-search-api-overlay.yaml.
+skills:
+- name: google-looker-studio-inventory-assets
+  file: google-looker-studio-inventory-assets.md
+  api: Google Looker Studio Assets:search API
+  operations:
+  - searchAssets
+  description: Inventory the reports and data sources an authenticated Workspace user can see, including trashed assets, with paging and the search-string filter syntax.

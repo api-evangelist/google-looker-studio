@@ -1,0 +1,67 @@
+generated: '2026-09-12'
+method: searched
+source: https://docs.cloud.google.com/looker/docs/studio/release-notes (HTTP 200, fetched 2026-09-12)
+provider: Google Looker Studio
+providerId: google-looker-studio
+scheme: dated-entries
+machine_readable: true
+feed: https://docs.cloud.google.com/feeds/data-studio-release-notes.xml
+feed_format: atom
+feed_status: 200
+feed_content_type: text/xml
+programmatic_access: >-
+  The release notes page states the notes are also queryable in BigQuery, alongside the Atom feed.
+current_version: v1
+note: >-
+  The changelog covers the whole Data Studio / Looker Studio product, not the REST API in
+  isolation. No entry in the window below changes the API surface — the five documented operations
+  are unchanged. Entries are quoted from the provider's own page.
+entries:
+- date: '2026-08-13'
+  kind: Announcement
+  breaking: false
+  highlights:
+  - Fullscreen charts — view an individual chart in fullscreen mode (not available for scorecards and gauge charts).
+  - Rotate text boxes, images and shapes on a non-responsive canvas.
+  - Center labels on stacked bar charts.
+  - Search for settings in the Setup and Style tabs of the properties panel.
+  - Copy a chart as a PNG image to the clipboard.
+  - Bubble chart border colour control.
+- date: '2026-07-30'
+  kind: Announcement
+  breaking: false
+  highlights:
+  - Conversational Analytics in Data Studio is generally available; data agents can be filtered by Google Cloud project, and agents needing extra permissions show an Unavailable label.
+  - Optional email notification when sharing a BigQuery-created Conversational Analytics data agent with Data Studio users.
+- date: '2026-06-18'
+  kind: Feature
+  breaking: false
+  highlights:
+  - Viewer data refresh — report editors can let viewers manually refresh component or report data.
+- date: '2026-06-11'
+  kind: Feature
+  breaking: false
+  pro_only: true
+  highlights:
+  - Customer-managed encryption keys (CMEK) for Data Studio Pro assets.
+  - Customer-managed storage — file uploads to your own Cloud Storage bucket, extracts to your own BigQuery dataset.
+  - Data residency — keep data within a geographical area.
+- date: '2026-06-01'
+  kind: Feature
+  breaking: false
+  highlights:
+  - Conversational Analytics in Data Studio supports multi-region BigQuery data agents.
+- date: '2026-05-14'
+  kind: Feature
+  breaking: false
+  highlights:
+  - Partner connectors added to the Connector Gallery (Openindex Site, Ahrefs Brand Radar, Microsoft Ads, Reddit Ads, App Store Connect Reviews, mailXpert Reports, Eskimi, Gong, Odoo, SHOPLINE).
+  - Series limit and grouping settings moved from the Style tab to a new Display section in the Setup tab; "Group others" renamed to "Group the rest as Others".
+- date: '2026-04-30'
+  kind: Deprecated
+  breaking: true
+  highlights:
+  - Location extension fields in the Google Ads and New Search Ads 360 connectors stopped serving data on 2026-05-04; reports using them error. Migrate to the "Asset location" fields.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

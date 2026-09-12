@@ -1,0 +1,70 @@
+generated: '2026-09-12'
+method: probed
+source: >-
+  Live unauthenticated probes of https://datastudio.googleapis.com/v1/assets:search on 2026-09-12,
+  plus the provider troubleshooting section at https://developers.google.com/looker-studio/api and
+  the Google API Design Guide error model the observed payloads conform to.
+provider: Google Looker Studio
+providerId: google-looker-studio
+format: google.rpc.Status
+rfc9457: false
+note: >-
+  The OpenAPI in this repo declares no 4xx/5xx responses at all, so nothing here could be derived
+  from it. Every entry below is either an envelope this pipeline observed on a live request or an
+  error the provider documents by name. The API does NOT use application/problem+json (RFC 9457);
+  it uses the Google API error envelope, delivered as application/json.
+envelope:
+  media_type: application/json; charset=UTF-8
+  shape: '{"error": {"code": <int>, "message": <string>, "status": <CANONICAL_CODE>, "details": [ {"@type": "type.googleapis.com/google.rpc.ErrorInfo", "reason": <string>, "domain": <string>, "metadata": {...}} ]}}'
+  observed_example_reference: >-
+    GET https://datastudio.googleapis.com/v1/assets:search?assetTypes=REPORT with no credentials
+    returned HTTP 401 with status UNAUTHENTICATED, reason CREDENTIALS_MISSING, domain googleapis.com
+    and metadata naming the backing service google.analytics.datastudio.v1.DataStudioService.SearchAssets.
+  challenge_header: 'WWW-Authenticate: Bearer realm="https://accounts.google.com/"'
+problem_types:
+- status: 401
+  code: UNAUTHENTICATED
+  reason: CREDENTIALS_MISSING
+  title: Request is missing required authentication credential
+  evidence: probed 2026-09-12 — GET /v1/assets:search with no Authorization header
+  remediation: >-
+    Attach an OAuth 2.0 bearer token obtained for a Google Workspace / Cloud Identity user whose
+    organization has authorized your OAuth client via domain-wide delegation.
+- status: 401
+  code: UNAUTHENTICATED
+  title: Request had invalid authentication credentials
+  evidence: probed 2026-09-12 — GET /v1/assets:search with a deliberately invalid bearer token
+  remediation: Refresh the access token. The refresh endpoint is https://oauth2.googleapis.com/token.
+- status: 403
+  code: PERMISSION_DENIED
+  title: Method doesn't allow unregistered callers (callers without established identity)
+  evidence: probed 2026-09-12 — GET https://datastudio.googleapis.com/$discovery/rest?version=v1
+  remediation: >-
+    Supply an API key or other consumer identity. This is also the shape returned when the Data
+    Studio API has not been enabled on the caller's Google Cloud project.
+- status: 400
+  code: invalid_scope
+  title: 'Error 400: invalid_scope'
+  evidence: documented at https://developers.google.com/looker-studio/api (Troubleshooting)
+  remediation: >-
+    The user's organization has not authorized the app, or authorized it with the wrong scope set.
+    A Workspace admin must add the OAuth client ID and the required scopes under domain-wide
+    delegation in the Google Admin console.
+- status: 400
+  code: INVALID_ARGUMENT
+  title: Malformed or missing required query parameter
+  evidence: >-
+    Not independently observed — the unauthenticated probe short-circuits on authentication before
+    argument validation, so a missing required assetTypes still returned 401. Recorded from the
+    Google API canonical error mapping and the reference marking assetTypes Required.
+  remediation: Supply exactly one assetTypes value, REPORT or DATA_SOURCE.
+silent_success:
+- operation: permissions:revokeAllPermissions
+  behaviour: >-
+    Well-formed requests always return 200 OK even when a named member is invalid (for example a
+    nonexistent Google account) or does not belong to the asset. A 200 is NOT evidence the member
+    existed or that anything changed. Re-read permissions to confirm.
+  source: https://developers.google.com/looker-studio/integrate/api/reference/permissions/revokeAllPermissions
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

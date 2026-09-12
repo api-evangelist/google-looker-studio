@@ -1,0 +1,92 @@
+generated: '2026-09-12'
+method: derived
+status: candidate
+source: >-
+  Derived from the provider-published Data Studio API reference
+  (https://developers.google.com/looker-studio/integrate/api/reference) and
+  openapi/google-looker-studio-assets-search-api-openapi.yml. No Looker Studio MCP server exists.
+provider: Google Looker Studio
+providerId: google-looker-studio
+deployment:
+  mode: none
+  auth: oauth
+  verified: probed
+  note: >-
+    No MCP server is published for Looker Studio / Data Studio. Probed
+    https://lookerstudio.google.com/mcp (HTTP 200, SPA catch-all HTML shell — not an MCP endpoint)
+    and https://datastudio.googleapis.com/mcp (HTTP 400, Google API gateway error envelope);
+    a JSON-RPC tools/list POST to the latter also returned 400.
+disambiguation: >-
+  Google DOES ship an MCP server for LOOKER — the Looker-managed MCP server and the Looker
+  integration in the MCP Toolbox for Databases (https://docs.cloud.google.com/looker/docs/mcp).
+  Looker and Looker Studio are DIFFERENT products: Looker is the LookML-modelled enterprise BI
+  platform, Looker Studio (formerly, and again currently, Data Studio) is the self-service
+  dashboard product whose API lives at datastudio.googleapis.com. The Looker MCP server does not
+  expose Looker Studio assets and is NOT credited to this provider. It belongs to all/google-looker/.
+tools:
+- name: search_assets
+  status: candidate
+  description: Search the authenticated user's Looker Studio reports and data sources by title, owner, creator, workspace or project.
+  rest: searchAssets
+  method: GET
+  path: /v1/assets:search
+  scopes:
+  - https://www.googleapis.com/auth/datastudio.readonly
+  - https://www.googleapis.com/auth/datastudio
+  source_spec: openapi/google-looker-studio-assets-search-api-openapi.yml
+- name: get_asset_permissions
+  status: candidate
+  description: Get the permissions (role to members map) for a Looker Studio asset.
+  rest: null
+  method: GET
+  path: /v1/assets/{assetName}/permissions
+  scopes:
+  - https://www.googleapis.com/auth/datastudio.readonly
+  - https://www.googleapis.com/auth/datastudio
+  source_docs: https://developers.google.com/looker-studio/integrate/api/reference/permissions/get
+  note: Documented by the provider but absent from the OpenAPI in this repo — no operationId to bind to.
+- name: update_asset_permissions
+  status: candidate
+  description: Replace the permissions object on a Looker Studio asset. The OWNER role cannot be updated.
+  rest: null
+  method: PATCH
+  path: /v1/assets/{assetName}/permissions
+  scopes:
+  - https://www.googleapis.com/auth/datastudio
+  source_docs: https://developers.google.com/looker-studio/integrate/api/reference/permissions/patch
+  note: Documented by the provider but absent from the OpenAPI in this repo.
+- name: add_asset_members
+  status: candidate
+  description: Add members to a role on a Looker Studio asset. Members cannot be added to the OWNER role.
+  rest: null
+  method: POST
+  path: /v1/assets/{assetName}/permissions:addMembers
+  scopes:
+  - https://www.googleapis.com/auth/datastudio
+  source_docs: https://developers.google.com/looker-studio/integrate/api/reference/permissions/addMembers
+  note: Documented by the provider but absent from the OpenAPI in this repo.
+- name: revoke_asset_permissions
+  status: candidate
+  description: Remove members from a Looker Studio asset. Owners and the authorized user cannot be removed.
+  rest: null
+  method: POST
+  path: /v1/assets/{assetName}/permissions:revokeAllPermissions
+  scopes:
+  - https://www.googleapis.com/auth/datastudio
+  source_docs: https://developers.google.com/looker-studio/integrate/api/reference/permissions/revokeAllPermissions
+  note: >-
+    Documented by the provider but absent from the OpenAPI in this repo. Always returns 200 OK for a
+    well-formed request even when a member is invalid or not on the asset — an agent cannot read
+    success as proof the member existed.
+agent_notes:
+- >-
+  The API is only usable by members of a Google Workspace or Cloud Identity organization whose
+  Workspace admin has granted the calling OAuth client domain-wide delegation. An agent acting for
+  a consumer Google account cannot call it at all.
+- >-
+  Discovery is gated: https://datastudio.googleapis.com/$discovery/rest?version=v1 returns HTTP 403
+  PERMISSION_DENIED to unregistered callers, and datastudio is not listed in the public
+  https://www.googleapis.com/discovery/v1/apis directory (530 entries, checked 2026-09-12).
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

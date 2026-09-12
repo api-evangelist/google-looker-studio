@@ -1,0 +1,45 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://www.npmjs.com/package/@google/dscc-gen and https://www.npmjs.com/package/@google/dscc-scripts
+  (registry metadata fetched from registry.npmjs.org 2026-09-12), plus
+  https://developers.google.com/looker-studio/visualization and
+  https://developers.google.com/looker-studio/connector.
+provider: Google Looker Studio
+providerId: google-looker-studio
+official: true
+scope: >-
+  IMPORTANT — this is NOT a CLI for the datastudio.googleapis.com REST API. Google ships no CLI and
+  no SDK for that API. These are the first-party command-line tools for building Community
+  Visualizations and Community Connectors, the Apps-Script and browser-side extension surfaces of
+  the product.
+tools:
+- name: dscc-gen
+  invocation: npx @google/dscc-gen
+  package: '@google/dscc-gen'
+  registry: npm
+  version: 2.0.31
+  published: '2020-10-27'
+  purpose: Scaffold a new Community Visualization or Community Connector project with working defaults.
+- name: dscc-scripts
+  invocation: npx @google/dscc-scripts <command>
+  package: '@google/dscc-scripts'
+  registry: npm
+  version: 1.0.17
+  published: '2020-08-04'
+  purpose: Build, bundle, push and deploy a visualization or connector project to Google Cloud Storage / Apps Script.
+  command_groups:
+  - group: viz
+    purpose: Build and deploy a Community Visualization bundle.
+  - group: connector
+    purpose: Build and deploy a Community Connector Apps Script project.
+  note: >-
+    Command groups are recorded at the granularity the package description and project docs state.
+    Per-subcommand flags are not enumerated here because no current published reference page lists
+    them, and guessing them would be fabrication.
+currency_warning: >-
+  Both binaries were last published in 2020. Any consumer installing them today gets a five-year-old
+  toolchain against a product that shipped features as recently as 2026-08-13.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

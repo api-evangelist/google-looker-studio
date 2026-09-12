@@ -1,0 +1,87 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  openapi/google-looker-studio-assets-search-api-openapi.yml, the provider reference at
+  https://developers.google.com/looker-studio/integrate/api/reference, the OAuth guidance at
+  https://developers.google.com/looker-studio/api, live probes of datastudio.googleapis.com, and
+  https://cloud.google.com/security/compliance/services-in-scope (fetched 2026-09-12).
+provider: Google Looker Studio
+providerId: google-looker-studio
+conformance:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    The OpenAPI declares an oauth2 securityScheme with an authorizationCode flow
+    (authorizationUrl https://accounts.google.com/o/oauth2/v2/auth, tokenUrl
+    https://oauth2.googleapis.com/token) and the API returns
+    WWW-Authenticate: Bearer realm="https://accounts.google.com/" on an unauthenticated request
+    (probed 2026-09-12).
+- id: oidc
+  conforms: true
+  evidence: >-
+    The authorization server named by the OAuth flow publishes a conformant OpenID Provider
+    configuration at https://accounts.google.com/.well-known/openid-configuration (HTTP 200, saved
+    to well-known/google-looker-studio-openid-configuration.json). Note this is Google's shared
+    identity layer, not something the Looker Studio product publishes on its own host.
+- id: pagination
+  conforms: true
+  evidence: >-
+    Opaque cursor pagination — pageSize (default 1000) and pageToken on the request;
+    nextPageToken and previousPageToken on the response.
+    https://developers.google.com/looker-studio/integrate/api/reference/assets/search
+- id: rfc9457
+  conforms: false
+  evidence: >-
+    Errors are application/json in the google.rpc.Status envelope, not application/problem+json.
+    Probed 2026-09-12; see errors/google-looker-studio-problem-types.yml.
+- id: idempotency
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header or equivalent replay token is documented or accepted on any of the
+    four write operations. The permissions PATCH carries an etag for optimistic concurrency, which
+    prevents lost updates but does not make a retry safe.
+- id: json-api
+  conforms: false
+  evidence: Response bodies are plain Google API JSON resources; no JSON:API document structure.
+- id: odata
+  conforms: false
+  evidence: No $metadata surface and no OData query options.
+- id: scim
+  conforms: false
+  evidence: >-
+    The Permissions resource models principals with Google's own prefixed-member syntax
+    (user:, group:, domain:, serviceAccount:, allUsers), not SCIM schema URNs. Membership is
+    managed in Google Workspace / Cloud Identity, outside this API.
+- id: grpc
+  conforms: true
+  partial: true
+  evidence: >-
+    The error envelope's ErrorInfo metadata names the backing gRPC method
+    google.analytics.datastudio.v1.DataStudioService.SearchAssets (probed 2026-09-12), so a
+    Protobuf service definition exists internally. Google publishes no .proto for it and there is
+    no public gRPC endpoint — the only public transport is REST/JSON.
+domain_standard:
+  applicable: false
+  note: >-
+    REWARD-ONLY CHECK, DELIBERATELY LEFT EMPTY. Self-service BI / dashboarding has no cross-vendor
+    machine-readable interchange standard that a management API of this shape could declare. The
+    adjacent standards in the analytics space (OpenTelemetry, FOCUS, the Open Knowledge Format
+    Google announced in 2026) all describe telemetry or semantic data, not report-asset management.
+    Nothing is asserted here rather than inventing a conformance to fill the slot.
+compliance_programs:
+  source: https://cloud.google.com/security/compliance/services-in-scope
+  last_modified_on_page: '2026-07-16'
+  service_row: Looker Studio
+  in_scope:
+  - ISO/IEC 27001, 27017, 27018 certifications
+  - SOC 1, SOC 2, SOC 3 reports
+  - PCI DSS certification
+  - Penetration testing report
+  note: >-
+    Looker Studio is listed as in scope for all four columns of Google's services-in-scope table.
+    These are Google Cloud programme-level attestations covering the service; the Looker Studio
+    product page itself enumerates only the Pro security features (CMEK, customer-managed storage,
+    data residency).
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

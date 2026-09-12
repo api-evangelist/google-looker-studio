@@ -1,8 +1,14 @@
 aid: google-looker-studio
 name: Google Looker Studio
 description: >-
-  A collection of APIs and resources for Google Looker Studio (formerly Google Data
-  Studio), Google's free business intelligence and data visualization platform.
+  Google Looker Studio — which Google's own documentation now renders again as Data Studio — is
+  Google's self-service business intelligence and data visualization platform, free to build and
+  view reports in, with a paid Pro tier sold per user per Google Cloud project. Three developer
+  surfaces exist: a small REST management API at datastudio.googleapis.com for searching report and
+  data-source assets and managing their sharing permissions, a Community Connector framework built
+  on Google Apps Script, and a Community Visualization framework built on the @google/dscc browser
+  library. The REST API is restricted to Google Workspace and Cloud Identity organizations and
+  requires a Workspace admin to configure domain-wide delegation before any call succeeds.
 deliveryModel:
   model: saas
   open_source: false
@@ -31,43 +37,62 @@ accessModel:
 image: https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
 url: https://lookerstudio.google.com
 created: '2024-01-01'
-modified: '2026-04-28'
+modified: '2026-09-12'
 specificationVersion: '0.23'
 type: Index
 apis:
 - name: Google Looker Studio Embedding API
   description: API for embedding Looker Studio reports in external applications.
   image: https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
-  humanUrl: https://developers.google.com/looker-studio/integrate
-  baseUrl: https://lookerstudio.google.com/embed
+  humanURL: https://developers.google.com/looker-studio/integrate
+  baseURL: https://lookerstudio.google.com/embed
   tags:
   - Embedding
   - Iframe
   - Integration
   properties:
   - type: Documentation
-    url: https://developers.google.com/looker-studio/integrate/embedding
+    url: https://developers.google.com/looker-studio/integrate
   - type: Guide
     url: https://support.google.com/looker-studio/answer/7450249
 - aid: google-looker-studio:google-looker-studio-assets-search-api
   name: Google Looker Studio Assets:search API
-  description: The Assets:search API from Google Looker Studio — 1 operation(s) for assets:search.
+  description: >-
+    The REST management API for Looker Studio (Data Studio) assets. The contract captured in this
+    repo covers one operation, assets:search, which lists the reports and data sources an
+    authenticated Workspace user can see. Google documents four further operations on the
+    Permissions resource that no machine-readable contract in this repo covers — recorded in
+    overlays/google-looker-studio-assets-search-api-overlay.yaml. Access requires Google Workspace
+    or Cloud Identity membership plus admin-configured domain-wide delegation.
+  image: https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg
+  humanURL: https://developers.google.com/looker-studio/api
+  baseURL: https://datastudio.googleapis.com
   tags:
   - Assets:search
+  - Permissions
+  - Reporting
   properties:
   - type: OpenAPI
     url: openapi/google-looker-studio-assets-search-api-openapi.yml
+  - type: Overlay
+    url: overlays/google-looker-studio-assets-search-api-overlay.yaml
   - type: Documentation
     url: https://developers.google.com/looker-studio/api
+  - type: APIReference
+    url: https://developers.google.com/looker-studio/integrate/api/reference
   - type: Authentication
-    url: https://developers.google.com/looker-studio/api/authentication
+    url: https://developers.google.com/looker-studio/api
   - type: Pricing
-    url: https://lookerstudio.google.com/pricing
+    url: https://cloud.google.com/data-studio
   - type: TermsOfService
     url: https://policies.google.com/terms
   - type: PrivacyPolicy
     url: https://policies.google.com/privacy
 common:
+  - type: VulnerabilityDisclosure
+    url: security/google-looker-studio-vulnerability-disclosure.yml
+  - type: Website
+    url: https://www.google.com/
   - type: AgenticAccess
     url: agentic-access/google-looker-studio-agentic-access.yml
   - type: DomainSecurity
@@ -92,10 +117,66 @@ common:
     url: https://lookerstudio.google.com/gallery
   - type: Data Connectors
     url: https://lookerstudio.google.com/data
-  - type: Partner Program
-    url: https://developers.google.com/looker-studio/partner
   - type: GitHubOrganization
     url: https://github.com/googledatastudio
+  - type: DeveloperPortal
+    url: https://developers.google.com/looker-studio
+  - type: Documentation
+    url: https://developers.google.com/looker-studio/integrate
+  - type: APIReference
+    url: https://developers.google.com/looker-studio/integrate/api/reference
+  - type: TermsOfService
+    url: https://policies.google.com/terms
+  - type: PrivacyPolicy
+    url: https://policies.google.com/privacy
+  - type: Pricing
+    url: https://cloud.google.com/data-studio
+  - type: SignUp
+    url: https://lookerstudio.google.com
+  - type: Packages
+    url: packages/google-looker-studio-packages.yml
+  - type: SDKs
+    url: packages/google-looker-studio-packages.yml
+  - type: CLI
+    url: cli/google-looker-studio-cli.yml
+  - type: Components
+    url: components/google-looker-studio-components.yml
+  - type: WellKnown
+    url: well-known/google-looker-studio-well-known.yml
+  - type: SecurityTxt
+    url: well-known/google-looker-studio-security.txt
+  - type: MCPServer
+    url: mcp/google-looker-studio-mcp.yml
+  - type: LLMsTxt
+    url: llms/google-looker-studio-llms.txt
+  - type: Conformance
+    url: conformance/google-looker-studio-conformance.yml
+  - type: Compliance
+    url: security/google-looker-studio-trust-center.yml
+  - type: TrustCenter
+    url: security/google-looker-studio-trust-center.yml
+  - type: Security
+    url: security/google-looker-studio-vulnerability-disclosure.yml
+  - type: VulnerabilityDisclosure
+    url: security/google-looker-studio-vulnerability-disclosure.yml
+  - type: ErrorCatalog
+    url: errors/google-looker-studio-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/google-looker-studio-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/google-looker-studio-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/google-looker-studio-changelog.yml
+  - type: Conventions
+    url: conventions/google-looker-studio-conventions.yml
+  - type: DataModel
+    url: data-model/google-looker-studio-data-model.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Plans
+    url: plans/google-looker-studio-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/google-looker-studio-rate-limits.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
@@ -107,3 +188,10 @@ tags:
   - Google
   - Looker
   - Reporting
+x-enrichment:
+  date: '2026-09-12'
+  status: enriched
+  artifacts_added: 19
+  pass: local-v3
+x-parent: google
+x-relationship: product

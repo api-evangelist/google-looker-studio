@@ -1,0 +1,142 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://developers.google.com/looker-studio/api,
+  https://developers.google.com/looker-studio/integrate/api/reference (and the assets/search,
+  permissions/* and types sub-pages), openapi/google-looker-studio-assets-search-api-openapi.yml,
+  and live probes of https://datastudio.googleapis.com/v1/assets:search — all 2026-09-12.
+provider: Google Looker Studio
+providerId: google-looker-studio
+cross_links:
+  errors: errors/google-looker-studio-problem-types.yml
+  lifecycle: lifecycle/google-looker-studio-lifecycle.yml
+  authentication: authentication/google-looker-studio-authentication.yml
+  scopes: scopes/google-looker-studio-scopes.yml
+  rate_limits: rate-limits/google-looker-studio-rate-limits.yml
+auth:
+  style: oauth2-bearer
+  flow: authorization_code
+  authorization_url: https://accounts.google.com/o/oauth2/v2/auth
+  token_url: https://oauth2.googleapis.com/token
+  challenge: 'WWW-Authenticate: Bearer realm="https://accounts.google.com/" (probed 2026-09-12)'
+  api_keys: false
+  precondition: >-
+    Domain-wide delegation. The calling OAuth client ID must be registered by a Google Workspace
+    or Cloud Identity admin in the Admin console, with the required scopes, before ANY user in that
+    organization can authorize it. Consumer Google accounts cannot use the API at all. Google
+    explicitly instructs developers NOT to add Data Studio scopes to their own OAuth client — the
+    admin attaches them during delegation.
+versioning:
+  style: path
+  current: v1
+  base: https://datastudio.googleapis.com/v1
+pagination:
+  style: opaque-cursor
+  request_params:
+  - name: pageSize
+    default: 1000
+  - name: pageToken
+  response_fields:
+  - nextPageToken
+  - previousPageToken
+  semantics: >-
+    An empty nextPageToken means there are no further results; an empty previousPageToken means the
+    start of the result set. nextPageToken is only present when the result count exceeds pageSize.
+  bidirectional: true
+filtering:
+  style: search-string
+  note: >-
+    Filtering is expressed inside the single `title` query parameter as a search string, not as
+    separate parameters. Supported prefixes — creator:, owner:, projectNumber:, parentWorkspace:,
+    from:, to: — and the literal `me` resolves to the authenticated user (owner:me, creator:me).
+    Multiple filters can be combined in one string.
+  sorting:
+    param: orderBy
+    values: [title, last_viewed_by_me, create_time, last_accessed_time, id]
+    note: Documented in the reference but absent from the OpenAPI in this repo; captured in overlays/.
+field_expansion:
+  supported: false
+  note: No expand, fields or sparse-fieldset parameter is offered. Responses are fixed-shape.
+metadata:
+  supported: false
+  note: No customer-defined metadata / custom-field bag on any resource.
+request_id_tracing:
+  supported: false
+  note: >-
+    No request-id header is documented and none was observed on a live response (probed
+    2026-09-12; the response carried only vary, server: ESF and the standard Google security
+    headers). An agent has no correlation handle to quote in a support ticket.
+error_envelope:
+  format: google.rpc.Status
+  media_type: application/json
+  rfc9457: false
+  detail: See errors/google-looker-studio-problem-types.yml.
+concurrency:
+  mechanism: etag
+  scope:
+  - GET /v1/assets/{assetName}/permissions
+  - PATCH /v1/assets/{assetName}/permissions
+  note: >-
+    The Permissions resource carries an `etag` described by the provider as being there "to detect
+    and fail concurrent modifications". This is optimistic concurrency, not replay protection.
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: null
+  note: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header was present on a live response (probed
+    2026-09-12) and none is documented. See rate-limits/google-looker-studio-rate-limits.yml.
+idempotency:
+  coverage: none
+  mechanism: null
+  header: null
+  scope: []
+  note: >-
+    There is no Idempotency-Key header, no client-supplied request token and no documented replay
+    window on any of the four write operations (permissions patch, addMembers,
+    revokeAllPermissions). PATCH is naturally idempotent in effect because it replaces the
+    permissions object wholesale, and addMembers is set-like, but neither is a provider-guaranteed
+    replay contract — a retried addMembers after an ambiguous timeout is safe by accident, not by
+    design. NO Idempotency pointer is emitted in apis.yml, because none is earned.
+dry_run_mode:
+  supported: false
+  note: >-
+    No preview, validate-only or dry-run flag on any operation. An agent cannot rehearse a
+    permissions change before applying it.
+reversibility:
+  grade: documented
+  note: >-
+    DOCUMENTED, NOT VERIFIED. Every write operation on this API has a documented inverse, but the
+    provider states NO time window for any of them, so this cannot be graded verified. No window is
+    asserted here; inventing one is the error in this block that could cost a user real access.
+  surfaces:
+  - write_operation: PATCH /v1/assets/{assetName}/permissions
+    operationId: null
+    reversal: >-
+      Re-issue PATCH with the prior Permissions object. Read it first with
+      GET /v1/assets/{assetName}/permissions and keep the etag — that GET response IS the restore
+      point, and nothing else preserves it.
+    window: not stated by the provider
+    caveat: The OWNER role cannot be updated, so an owner change cannot be made or unmade here at all.
+    docs: https://developers.google.com/looker-studio/integrate/api/reference/permissions/patch
+  - write_operation: POST /v1/assets/{assetName}/permissions:addMembers
+    operationId: null
+    reversal: POST /v1/assets/{assetName}/permissions:revokeAllPermissions with the same member list.
+    window: not stated by the provider
+    docs: https://developers.google.com/looker-studio/integrate/api/reference/permissions/addMembers
+  - write_operation: POST /v1/assets/{assetName}/permissions:revokeAllPermissions
+    operationId: null
+    reversal: POST .../permissions:addMembers with the removed members and their prior role.
+    window: not stated by the provider
+    caveat: >-
+      Reversal requires knowing the prior role of each removed member, which the revoke request
+      does not echo back and the revoke response does not preserve. An agent that revokes without
+      first reading permissions has destroyed the information needed to undo itself. Compounding
+      this, a well-formed revoke returns 200 OK even for members that were never on the asset, so
+      the response cannot be used to reconstruct what was actually removed.
+    docs: https://developers.google.com/looker-studio/integrate/api/reference/permissions/revokeAllPermissions
+  read_only_surface:
+  - GET /v1/assets:search
+  - GET /v1/assets/{assetName}/permissions
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
