@@ -1,29 +1,21 @@
 ---
 kin_checks:
   slug: google-looker-studio
-  schema_version: 0.21.0
-  scored_at: '2026-09-12'
-  run_ts: 2026-09-12T080032
+  schema_version: 0.22.0
+  scored_at: '2026-09-15'
+  run_ts: 2026-09-15T230249
   note: Actionable checks only (missed + partial). earned/na are every other check
-    in rubric/scoring-0.21.0.yml; counts below let you verify that.
+    in rubric/scoring-0.22.0.yml; counts below let you verify that.
   counts:
     total: 136
-    earned: 33
-    partial: 10
-    missed: 64
+    earned: 53
+    partial: 8
+    missed: 46
     na: 29
   checks:
-  - id: description_substantive
-    status: missed
   - id: multiple_apis
     status: missed
-  - id: human_url_per_api
-    status: missed
-  - id: base_url_per_api
-    status: missed
   - id: well_known_published
-    status: missed
-  - id: llms_txt_published
     status: missed
   - id: openapi_3_2
     status: missed
@@ -69,13 +61,11 @@ kin_checks:
     status: missed
   - id: vocabulary_published
     status: missed
-  - id: conformance_declared
-    status: missed
   - id: overlay_published
     status: missed
-  - id: deprecation_policy
+  - id: rate_limits_documented
     status: missed
-  - id: security_disclosure
+  - id: rate_limits_rich
     status: missed
   - id: webhooks_advertised
     status: missed
@@ -83,43 +73,20 @@ kin_checks:
     status: missed
   - id: examples_published
     status: missed
-  - id: portal_present
-    status: missed
-  - id: api_reference_present
-    status: missed
   - id: getting_started_present
     status: missed
     detail: pointer liveness 0.0
-  - id: authentication_documented
-    status: missed
-    detail: pointer liveness 0.0
-  - id: sdk_count_1
-    status: missed
   - id: sdk_count_3
-    status: missed
-  - id: cli_present
     status: missed
   - id: console_or_sandbox
     status: missed
   - id: postman_present
     status: missed
-  - id: agent_skill_present
+  - id: plans_multiple
     status: missed
-  - id: pricing_link
-    status: missed
-    detail: pointer liveness 0.0
   - id: sign_up_present
     status: missed
-  - id: compliance_published
-    status: missed
-  - id: trust_center
-    status: missed
-  - id: reg_vulnerability_disclosure
-    status: missed
-  - id: reg_compliance_published
-    status: missed
-  - id: reg_standards_conformance
-    status: missed
+    detail: pointer liveness 0.0
   - id: upsert_outcome_discriminator
     status: missed
   - id: upsert_alternate_key
@@ -130,13 +97,9 @@ kin_checks:
     status: missed
   - id: mcp_server
     status: missed
-  - id: error_semantics
-    status: missed
   - id: openapi_examples
     status: missed
   - id: event_surface_described
-    status: missed
-  - id: agent_skills
     status: missed
   - id: well_known_catalog
     status: missed
@@ -150,39 +113,34 @@ kin_checks:
     status: missed
   - id: agentic_commerce
     status: missed
-  - id: rate_limits_documented
-    status: partial
-    earned: 2.0
-  - id: rate_limits_rich
-    status: partial
-    earned: 1.0
   - id: github_org_present
     status: partial
     earned: 1.0
     detail: pointer liveness 0.5
+  - id: agent_skill_present
+    status: partial
+    earned: 0.75
   - id: support_channel
     status: partial
     earned: 1.0
     detail: pointer liveness 0.5
-  - id: plans_present
-    status: partial
-    earned: 2.0
-  - id: plans_multiple
-    status: partial
-    earned: 1.0
   - id: agentic_access
     status: partial
     earned: 2.5
     detail: 'authorship: derived'
   - id: auth_clarity
     status: partial
-    earned: 7.5
-    detail: 'grade: negotiable'
+    earned: 9.0
+    detail: 'grade: served'
+  - id: error_semantics
+    status: partial
+    earned: 4.0
+    detail: 'grade: documented'
   - id: rate_limit_signal
     status: partial
     earned: 3.5
     detail: 'grade: documented'
-  - id: delegated_identity
+  - id: agent_skills
     status: partial
-    earned: 3.0
-    detail: 'grade: documented'
+    earned: 1.25
+    detail: 'authorship: derived'
