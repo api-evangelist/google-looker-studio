@@ -47,6 +47,10 @@ apis:
   humanURL: https://developers.google.com/looker-studio/integrate
   baseURL: https://lookerstudio.google.com/embed
   tags:
+  - Embeddings
+  - Iframe
+  - Integration
+  tags_raw:
   - Embedding
   - Iframe
   - Integration
