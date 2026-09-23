@@ -1,7 +1,7 @@
 {
   "provider": "google-looker-studio",
   "sources": [
-    "google-looker-studio-assets-search-api-openapi.yml"
+    "_original/google-looker-studio-openapi.yml"
   ],
   "outputs": [
     "google-looker-studio-assets-search-api-openapi.yml"
@@ -10,8 +10,13 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "google-looker-studio-assets-search-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "google-looker-studio-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "google-looker-studio-openapi.yml: tagged paths GET /v1/assets:search -> Assets:search",
+    "google-looker-studio-openapi.yml: declared missing tag: Assets:search",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "google-looker-studio-assets-search-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

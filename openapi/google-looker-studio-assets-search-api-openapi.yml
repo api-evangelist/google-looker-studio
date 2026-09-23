@@ -7,9 +7,7 @@ info:
 
     restricted to organizations using Google Workspace or Cloud Identity, and
 
-    requires a Workspace admin to configure domain-wide delegation.
-
-    '
+    requires a Workspace admin to configure domain-wide delegation.'
   version: v1
 servers:
 - url: https://datastudio.googleapis.com
